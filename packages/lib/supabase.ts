@@ -5,7 +5,10 @@ export type { User } from "@supabase/supabase-js";
 export const isSupabaseConfigured =
   typeof process.env.NEXT_PUBLIC_SUPABASE_URL !== "undefined" &&
   process.env.NEXT_PUBLIC_SUPABASE_URL !== "" &&
-  process.env.NEXT_PUBLIC_SUPABASE_URL !== "undefined";
+  process.env.NEXT_PUBLIC_SUPABASE_URL !== "undefined" &&
+  typeof process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY !== "undefined" &&
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY !== "" &&
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY !== "undefined";
 
 const supabaseUrl = isSupabaseConfigured
   ? process.env.NEXT_PUBLIC_SUPABASE_URL!
