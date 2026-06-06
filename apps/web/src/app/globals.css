@@ -510,7 +510,7 @@ button, input, select, textarea {
   color: white;
   display: flex;
   align-items: center;
-  min-height: 520px;
+  min-height: 650px;
 }
 
 .hero-container {
@@ -594,7 +594,7 @@ button, input, select, textarea {
     background-image: linear-gradient(to bottom, rgba(15, 50, 18, 0.95) 0%, rgba(15, 50, 18, 0.95) 100%), var(--hero-bg);
     background-position: center;
     padding: 60px 0;
-    min-height: auto;
+    min-height: 480px;
     text-align: center;
   }
   .hero-content {
@@ -1595,7 +1595,106 @@ button, input, select, textarea {
 @media (max-width: 992px) {
   .admin-dashboard-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
+
+  .admin-sidebar {
+    padding: 12px;
+  }
+
+  .admin-nav-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    display: flex;
+  }
+
+  .admin-side-btn {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    width: auto;
+    text-align: center;
+    flex: 1 1 auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .admin-main-panel {
+    padding: 20px;
+  }
+
+  .admin-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    text-align: center;
+    display: flex;
+  }
+
+  .admin-top-bar-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-nav-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .admin-side-btn {
+    width: 100%;
+  }
+}
+
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.admin-sidebar {
+  padding: 16px;
+  height: fit-content;
+}
+
+.admin-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-main-panel {
+  padding: 32px;
+}
+
+.admin-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+}
+
+.admin-title {
+  color: var(--primary);
+  font-size: 2rem;
+}
+
+.admin-status {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.admin-top-bar-actions {
+  display: flex;
+  gap: 12px;
 }
 
 

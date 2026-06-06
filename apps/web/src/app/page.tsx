@@ -26,9 +26,10 @@ export default async function Page() {
   const activeTestimonials = testimonials.slice(0, 4);
 
   // Determine Hero image
-  const heroImage = products.length > 0 && products[0].images && products[0].images.length > 0
-    ? products[0].images[0]
-    : "https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=800&auto=format&fit=crop&q=80";
+  const heroImage = settings.heroImage || 
+    (products.length > 0 && products[0].images && products[0].images.length > 0
+      ? products[0].images[0]
+      : "https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=800&auto=format&fit=crop&q=80");
 
   // Dynamic CSS variables for background food photo blend
   const heroStyle = {

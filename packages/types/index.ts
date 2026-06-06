@@ -71,6 +71,7 @@ export const SettingsSchema = z.object({
   siteName: z.string().min(1, "Nama website wajib diisi"),
   heroTitle: z.string().min(1, "Judul hero wajib diisi"),
   heroSubtitle: z.string().min(1, "Subjudul hero wajib diisi"),
+  heroImage: z.string().optional(),
   phone: z.string().min(1, "Nomor telepon wajib diisi"),
   whatsapp: z.string().min(1, "Nomor WhatsApp wajib diisi"),
   instagram: z.string().min(1, "Username Instagram wajib diisi"),

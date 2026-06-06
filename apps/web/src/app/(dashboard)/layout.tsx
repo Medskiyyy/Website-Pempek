@@ -45,14 +45,14 @@ export default function DashboardLayout({
   return (
     <div className="admin-dashboard container section-padding animate-fade-in" style={{ minHeight: "100vh" }}>
       {/* Dashboard Top bar */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px", borderBottom: "1px solid var(--border-color)", paddingBottom: "20px" }}>
+      <div className="admin-top-bar">
         <div>
-          <h1 style={{ color: "var(--primary)", fontSize: "2rem" }}>Dashboard Pengelola</h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+          <h1 className="admin-title">Dashboard Pengelola</h1>
+          <p className="admin-status">
             Status Login: <strong style={{ textTransform: "capitalize" }}>{role || "admin"}</strong> (Live Database)
           </p>
         </div>
-        <div style={{ display: "flex", gap: "12px" }}>
+        <div className="admin-top-bar-actions">
           {role === "developer" && (
             <span className="badge badge-success" style={{ backgroundColor: "#E3F2FD", color: "#1E88E5", display: "flex", alignItems: "center" }}>
               Developer Mode (Full Access)
@@ -64,10 +64,10 @@ export default function DashboardLayout({
         </div>
       </div>
 
-      <div className="admin-dashboard-grid" style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "32px" }}>
+      <div className="admin-dashboard-grid">
         {/* Left Navigation Sidebar */}
-        <aside className="admin-sidebar glass-card" style={{ padding: "16px", height: "fit-content" }}>
-          <nav style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <aside className="admin-sidebar glass-card">
+          <nav className="admin-nav-list">
             <Link
               href="/dashboard"
               className={`admin-side-btn ${isActive("/dashboard") ? "active" : ""}`}
@@ -116,7 +116,7 @@ export default function DashboardLayout({
         </aside>
 
         {/* Right Content Panel */}
-        <main className="admin-main-panel glass-card" style={{ padding: "32px" }}>
+        <main className="admin-main-panel glass-card">
           {children}
         </main>
       </div>

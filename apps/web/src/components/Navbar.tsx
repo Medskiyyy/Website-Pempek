@@ -11,8 +11,6 @@ interface NavbarProps {
 
 export default function Navbar({ settings }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [clickCount, setClickCount] = useState(0);
-  const [lastClickTime, setLastClickTime] = useState(0);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -32,32 +30,11 @@ export default function Navbar({ settings }: NavbarProps) {
     return pathname.startsWith(href);
   };
 
-  const handleLogoClick = (e: React.MouseEvent) => {
-    // Prevent normal Link redirection to '/' if click counter is active
-    const now = Date.now();
-    
-    // Reset click count if time gap between clicks is larger than 2 seconds
-    if (now - lastClickTime > 2000) {
-      setClickCount(1);
-    } else {
-      const nextCount = clickCount + 1;
-      setClickCount(nextCount);
-      if (nextCount === 5) {
-        e.preventDefault();
-        setClickCount(0);
-        // Navigate to the hidden admin login panel
-        router.push("/login");
-      }
-    }
-    setLastClickTime(now);
-  };
-
   return (
     <header className="navbar-header">
       <div className="container navbar-container">
         <Link 
           href="/" 
-          onClick={handleLogoClick}
           className="navbar-logo" 
           title={settings?.siteName || "Pempek Palembang Cek Lis"}
         >

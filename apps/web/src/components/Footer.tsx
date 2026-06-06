@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Settings } from "@pempek-ceklis/types";
 
 interface FooterProps {
@@ -8,6 +11,37 @@ interface FooterProps {
 
 export default function Footer({ settings }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const router = useRouter();
+
+  const [clickCount, setClickCount] = useState(0);
+  const [lastClickTime, setLastClickTime] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl + Shift + A triggers the login page
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        router.push("/login");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [router]);
+
+  const handleCopyrightClick = () => {
+    const now = Date.now();
+    if (now - lastClickTime > 2000) {
+      setClickCount(1);
+    } else {
+      const nextCount = clickCount + 1;
+      setClickCount(nextCount);
+      if (nextCount === 5) {
+        setClickCount(0);
+        router.push("/login");
+      }
+    }
+    setLastClickTime(now);
+  };
 
   return (
     <footer className="footer-section">
@@ -58,7 +92,12 @@ export default function Footer({ settings }: FooterProps) {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {currentYear} {settings.siteName}. All Rights Reserved. Made for culinary excellence in Tangerang Selatan.</p>
+        <p 
+          onClick={handleCopyrightClick} 
+          style={{ userSelect: "none" }}
+        >
+          &copy; {currentYear} {settings.siteName}. All Rights Reserved. Made for culinary excellence in Tangerang Selatan.
+        </p>
       </div>
     </footer>
   );

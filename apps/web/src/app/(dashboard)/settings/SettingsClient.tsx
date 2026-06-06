@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Settings } from "@pempek-ceklis/types";
-import { dbSettings } from "@pempek-ceklis/lib";
+import { dbSettings, uploadImage } from "@pempek-ceklis/lib";
 import { useAuth } from "@/context/AuthContext";
 import { CheckIcon } from "@/components/Icons";
 
@@ -15,10 +15,33 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
   const { role } = useAuth();
   const [settings, setSettings] = useState<Settings>(initialSettings);
   const [submitting, setSubmitting] = useState(false);
+  const [uploadingHero, setUploadingHero] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const router = useRouter();
 
   const isLocked = false; // Disabled role lock as requested: normal admin can edit settings fully
+
+  const handleHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Ukuran file gambar maksimal adalah 2MB.");
+      return;
+    }
+
+    setUploadingHero(true);
+
+    try {
+      const url = await uploadImage(file, "settings");
+      setSettings((prev) => ({ ...prev, heroImage: url }));
+    } catch (err) {
+      console.error("Gagal mengunggah file hero:", err);
+      alert("Gagal mengunggah & mengompres gambar hero.");
+    } finally {
+      setUploadingHero(false);
+    }
+  };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -131,6 +154,37 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
               required
               style={isLocked ? { backgroundColor: "#f5f5f5", cursor: "not-allowed" } : {}}
             />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Foto Banner Utama (Hero Image)</label>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {settings.heroImage && (
+              <div style={{ position: "relative", width: "240px", height: "135px", borderRadius: "8px", overflow: "hidden", border: "1px solid var(--border-color)", background: "rgba(0,0,0,0.02)" }}>
+                <img
+                  src={settings.heroImage}
+                  alt="Pratinjau Foto Hero"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </div>
+            )}
+            <div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleHeroImageUpload}
+                style={{ display: "none" }}
+                id="hero-image-file"
+                disabled={uploadingHero}
+              />
+              <label htmlFor="hero-image-file" className="btn btn-secondary btn-sm" style={{ margin: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                📁 {uploadingHero ? "Memproses & Kompres..." : settings.heroImage ? "Ubah Foto Hero (Upload Lokal)" : "Pilih & Upload Foto Hero"}
+              </label>
+              <span style={{ display: "block", fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "6px" }}>
+                Format: JPG, PNG, WEBP. Maksimal 2MB. Gambar akan dikompres otomatis.
+              </span>
+            </div>
           </div>
         </div>
 
