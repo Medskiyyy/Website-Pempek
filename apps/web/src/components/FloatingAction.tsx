@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import { WhatsAppIcon, InstagramIcon, MapsIcon } from "./Icons";
 import { Settings } from "@pempek-ceklis/types";
 
@@ -9,6 +10,8 @@ interface FloatingActionProps {
 }
 
 export default function FloatingAction({ settings }: FloatingActionProps) {
+  const pathname = usePathname();
+  
   const openLink = (url: string) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -16,6 +19,19 @@ export default function FloatingAction({ settings }: FloatingActionProps) {
   const getMapsSearchUrl = () => {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`;
   };
+
+  // Hide floating action buttons on admin panel pages and login page
+  const isAdminPage = pathname === "/login" || [
+    "/dashboard",
+    "/products",
+    "/banners",
+    "/gallery",
+    "/testimonials",
+    "/settings",
+    "/users"
+  ].some(path => pathname === path || pathname.startsWith(path + "/"));
+
+  if (isAdminPage) return null;
 
   return (
     <div className="fab-container">

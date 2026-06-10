@@ -536,7 +536,7 @@ button, input, select, textarea {
 }
 
 .hero-title {
-  font-size: 3.5rem;
+  font-size: 4rem;
   color: white;
   margin-bottom: 16px;
   letter-spacing: -1px;
@@ -554,7 +554,7 @@ button, input, select, textarea {
 }
 
 .hero-tagline {
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   color: var(--accent);
   font-weight: 600;
   margin-bottom: 20px;
@@ -595,13 +595,25 @@ button, input, select, textarea {
 
 @media (max-width: 992px) {
   .hero-title {
-    font-size: 2.75rem;
+    font-size: 3.2rem;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .hero-title {
-    font-size: 2.1rem;
+    font-size: 2.8rem;
+  }
+  .hero-tagline {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.3rem;
+  }
+  .hero-tagline {
+    font-size: 0.95rem;
   }
 }
 
@@ -1712,6 +1724,19 @@ button, input, select, textarea {
   
   .admin-side-btn {
     width: 100%;
+  }
+
+  .admin-dashboard.container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .admin-main-panel {
+    padding: 16px 12px;
+  }
+  
+  .admin-modal {
+    padding: 24px 16px;
   }
 }
 

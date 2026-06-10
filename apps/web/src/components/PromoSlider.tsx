@@ -51,8 +51,8 @@ export default function PromoSlider({ banners }: PromoSliderProps) {
             style={{ 
               display: "flex", 
               transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)", 
-              transform: `translateX(-${currentIndex * 100}%)`,
-              width: "100%"
+              transform: `translateX(-${currentIndex * (100 / activeBanners.length)}%)`,
+              width: `${activeBanners.length * 100}%`
             }}
           >
             {activeBanners.map((banner) => (
@@ -60,7 +60,7 @@ export default function PromoSlider({ banners }: PromoSliderProps) {
                 className="promo-slide" 
                 key={banner.id} 
                 style={{ 
-                  minWidth: "100%", 
+                  width: `${100 / activeBanners.length}%`, 
                   flexShrink: 0, 
                   position: "relative",
                   animation: "none" // Disable individual slide fade-in to let horizontal track slide operate cleanly

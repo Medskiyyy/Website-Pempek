@@ -140,7 +140,7 @@ export default async function Page() {
             {/* X Axis Labels */}
             <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 0", borderTop: "1px solid var(--border-color)", marginTop: "8px", fontSize: "0.75rem", color: "var(--text-secondary)" }}>
               {trafficData.map((d) => (
-                <span key={d.day} style={{ width: "60px", textAlign: "center" }}>{d.day}</span>
+                <span key={d.day} style={{ flex: "1 1 0px", textAlign: "center" }}>{d.day}</span>
               ))}
             </div>
           </div>
