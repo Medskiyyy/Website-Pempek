@@ -99,14 +99,12 @@ button, input, select, textarea {
 @media (max-width: 480px) {
   .section-title {
     font-size: 1.35rem;
-    white-space: nowrap;
   }
 }
 
 @media (max-width: 360px) {
   .section-title {
     font-size: 1.25rem;
-    white-space: nowrap;
   }
 }
 
@@ -636,10 +634,16 @@ button, input, select, textarea {
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 2.3rem;
+    font-size: 1.8rem;
   }
   .hero-tagline {
     font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 1.6rem;
   }
 }
 
@@ -1092,6 +1096,22 @@ button, input, select, textarea {
   }
   .about-content p {
     margin-bottom: 20px !important;
+  }
+}
+
+.about-page .section-title {
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .about-page .section-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .about-page .section-title {
+    font-size: 1.2rem;
   }
 }
 
