@@ -139,3 +139,18 @@ create policy "Allow admin write to settings" on public.settings for all using (
 create policy "Allow self or developer read to users" on public.users for select
   using (auth.uid()::text = uid or is_developer());
 create policy "Allow developer write to users" on public.users for all using (is_developer());
+
+-- Trigger to automatically mirror new auth users to public users table
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.users (uid, email, role)
+  values (new.id, new.email, 'admin');
+  return new;
+end;
+$$ language plpgsql security definer;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
