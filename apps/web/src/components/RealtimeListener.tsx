@@ -10,18 +10,25 @@ export default function RealtimeListener() {
   useEffect(() => {
     if (!isSupabaseConfigured) return;
 
-    // Subscribe to all changes in public schema
-    const channel = supabase
-      .channel("db-realtime-sync")
-      .on(
+    // Anonymous clients must subscribe to specific tables explicitly for RLS to evaluate correctly
+    const tables = ["products", "banners", "testimonials", "gallery", "settings"];
+    
+    const channel = supabase.channel("db-realtime-sync");
+    
+    tables.forEach((tableName) => {
+      channel.on(
         "postgres_changes",
-        { event: "*", schema: "public" },
+        { event: "*", schema: "public", table: tableName },
         (payload) => {
-          console.log("[RealtimeListener] Database changed, refreshing page data...", payload.table);
+          console.log(`[RealtimeListener] Table "${tableName}" changed:`, payload.eventType);
           router.refresh();
         }
-      )
-      .subscribe();
+      );
+    });
+
+    channel.subscribe((status) => {
+      console.log("[RealtimeListener] Realtime subscription status:", status);
+    });
 
     return () => {
       supabase.removeChannel(channel);
