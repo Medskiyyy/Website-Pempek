@@ -19,20 +19,17 @@ export default async function Page() {
         <div className="grid-2 testimonials-grid">
           {testimonials.map((t) => (
             <div key={t.id} className="glass-card testimonial-card animate-fade-in">
-              <div className="testimonial-stars" style={{ color: "var(--accent)", fontSize: "1.2rem", marginBottom: "16px" }}>
-                ★★★★★
-              </div>
-              <p className="testimonial-text" style={{ fontSize: "1.05rem", fontStyle: "italic", marginBottom: "20px", color: "var(--text-primary)" }}>
-                &ldquo;{t.content}&rdquo;
-              </p>
-              <div className="testimonial-footer">
-                <h4 className="testimonial-author" style={{ color: "var(--primary)", fontSize: "1.1rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
+                <h4 className="testimonial-author" style={{ color: "var(--primary)", fontSize: "1.1rem", margin: 0 }}>
                   {t.customerName}
                 </h4>
-                <span className="badge badge-success" style={{ backgroundColor: "#E8F5E9", color: "#2E7D32" }}>
-                  Verified Customer
-                </span>
+                <div className="testimonial-stars" style={{ color: "var(--accent)", fontSize: "1.1rem", margin: 0 }}>
+                  ★★★★★
+                </div>
               </div>
+              <p className="testimonial-text" style={{ fontSize: "1.05rem", fontStyle: "italic", margin: 0, color: "var(--text-primary)" }}>
+                &ldquo;{t.content}&rdquo;
+              </p>
             </div>
           ))}
         </div>

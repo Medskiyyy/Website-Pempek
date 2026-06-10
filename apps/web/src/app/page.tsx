@@ -167,10 +167,11 @@ export default async function Page() {
           <div className="grid-2 testimonials-grid">
             {activeTestimonials.map((testimonial) => (
               <div key={testimonial.id} className="glass-card testimonial-card">
-                <div className="testimonial-stars">★★★★★</div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
+                  <h4 className="testimonial-author" style={{ margin: 0 }}>{testimonial.customerName}</h4>
+                  <div className="testimonial-stars" style={{ marginBottom: 0 }}>★★★★★</div>
+                </div>
                 <p className="testimonial-text">&ldquo;{testimonial.content}&rdquo;</p>
-                <h4 className="testimonial-author">{testimonial.customerName}</h4>
-                <span className="testimonial-badge-verified">Pelanggan Terverifikasi</span>
               </div>
             ))}
           </div>

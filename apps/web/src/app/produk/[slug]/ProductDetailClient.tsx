@@ -83,12 +83,7 @@ export default function ProductDetailClient({ product, settings }: ProductDetail
             </div>
           </div>
 
-          {/* SEO Metadata Simulation */}
-          <div className="detail-seo-preview">
-            <h4 className="seo-preview-title">Metadata SEO (Simulasi)</h4>
-            <p><strong>SEO Title:</strong> {product.seoTitle || `${product.name} - Pempek Cek Lis`}</p>
-            <p><strong>SEO Description:</strong> {product.seoDescription || `Beli ${product.name} berkualitas asli Palembang di Serpong Tangerang Selatan.`}</p>
-          </div>
+
         </div>
       </div>
     </div>

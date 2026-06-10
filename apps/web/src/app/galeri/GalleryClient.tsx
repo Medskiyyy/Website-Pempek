@@ -9,6 +9,7 @@ interface GalleryClientProps {
 
 export default function GalleryClient({ gallery }: GalleryClientProps) {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const filters = [
     { id: "all", label: "Semua Foto" },
@@ -48,7 +49,12 @@ export default function GalleryClient({ gallery }: GalleryClientProps) {
       {filteredPhotos.length > 0 ? (
         <div className="grid-3 gallery-grid">
           {filteredPhotos.map((item) => (
-            <div key={item.id} className="gallery-item-card glass-card">
+            <div 
+              key={item.id} 
+              className="gallery-item-card glass-card"
+              style={{ cursor: "pointer" }}
+              onClick={() => setSelectedImage(item.imageUrl)}
+            >
               <div className="gallery-img-container">
                 <img src={item.imageUrl} alt={item.caption || "Pempek Cek Lis"} className="gallery-img aspect-1-1" />
               </div>
@@ -70,8 +76,75 @@ export default function GalleryClient({ gallery }: GalleryClientProps) {
       )}
 
       <div className="text-center" style={{ marginTop: "40px", color: "var(--text-secondary)", fontSize: "0.85rem" }}>
-        Menampilkan {filteredPhotos.length} dari total {activePhotos.length} foto (Maksimal kapasitas galeri: 50 foto).
+        Menampilkan {filteredPhotos.length} foto.
       </div>
+
+      {/* Fullscreen Photo Lightbox Modal */}
+      {selectedImage && (
+        <div 
+          onClick={() => setSelectedImage(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.85)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 2000,
+            padding: "24px",
+            cursor: "zoom-out",
+            animation: "fadeIn 0.2s ease-out"
+          }}
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            style={{ 
+              position: "relative", 
+              maxWidth: "90%", 
+              maxHeight: "90%", 
+              display: "flex", 
+              flexDirection: "column", 
+              alignItems: "center",
+              cursor: "default"
+            }}
+          >
+            <img 
+              src={selectedImage} 
+              alt="Pratinjau Galeri" 
+              style={{ 
+                maxWidth: "100%", 
+                maxHeight: "80vh", 
+                objectFit: "contain", 
+                borderRadius: "8px", 
+                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                border: "2px solid rgba(255,255,255,0.1)"
+              }} 
+            />
+            <button 
+              onClick={() => setSelectedImage(null)}
+              style={{
+                position: "absolute",
+                top: "-45px",
+                right: "0",
+                background: "none",
+                border: "none",
+                color: "white",
+                fontSize: "2rem",
+                cursor: "pointer",
+                fontWeight: "bold",
+                padding: "4px"
+              }}
+              title="Tutup"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

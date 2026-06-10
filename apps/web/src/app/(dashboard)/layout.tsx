@@ -43,7 +43,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="admin-dashboard container section-padding animate-fade-in" style={{ minHeight: "100vh" }}>
+    <div className="admin-dashboard container section-padding animate-fade-in-simple" style={{ minHeight: "100vh" }}>
       {/* Dashboard Top bar */}
       <div className="admin-top-bar">
         <div>

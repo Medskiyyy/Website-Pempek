@@ -163,16 +163,14 @@ export default async function Page() {
             <table className="admin-table" style={{ fontSize: "0.85rem", borderCollapse: "collapse", width: "100%" }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border-color)" }}>
-                  <th style={{ padding: "10px", textAlign: "left" }}>Path Halaman</th>
-                  <th style={{ padding: "10px", textAlign: "left" }}>Judul Halaman</th>
+                  <th style={{ padding: "10px", textAlign: "left" }}>Nama Menu / Halaman</th>
                   <th style={{ padding: "10px", textAlign: "right" }}>Tayangan</th>
                 </tr>
               </thead>
               <tbody>
                 {popularPages.map((page, idx) => (
                   <tr key={idx} style={{ borderBottom: "1px solid rgba(0,0,0,0.03)" }}>
-                    <td style={{ padding: "10px" }}><code style={{ color: "var(--primary)", fontWeight: 500 }}>{page.path}</code></td>
-                    <td style={{ padding: "10px", color: "var(--text-primary)" }}>{page.title}</td>
+                    <td style={{ padding: "10px", color: "var(--text-primary)", fontWeight: 500 }}>{page.title}</td>
                     <td style={{ padding: "10px", textAlign: "right", fontWeight: 600 }}>{page.views} kali</td>
                   </tr>
                 ))}

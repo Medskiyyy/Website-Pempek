@@ -15,8 +15,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<Banner | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [uploadingDesktop, setUploadingDesktop] = useState(false);
-  const [uploadingMobile, setUploadingMobile] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const router = useRouter();
 
   const unsplashSuggestions = [
@@ -84,7 +83,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, target: "desktop" | "mobile") => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -93,23 +92,22 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
       return;
     }
 
-    if (target === "desktop") setUploadingDesktop(true);
-    else setUploadingMobile(true);
+    setUploadingImage(true);
 
     try {
       const url = await uploadImage(file, "banners");
       if (editingItem) {
         setEditingItem({
           ...editingItem,
-          [target === "desktop" ? "desktopImage" : "mobileImage"]: url
+          desktopImage: url,
+          mobileImage: url
         });
       }
     } catch (err) {
       console.error("Gagal mengunggah file:", err);
       alert("Gagal mengunggah & mengompres gambar.");
     } finally {
-      if (target === "desktop") setUploadingDesktop(false);
-      else setUploadingMobile(false);
+      setUploadingImage(false);
     }
   };
 
@@ -126,7 +124,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Gambar (Desktop/Mobile)</th>
+              <th>Gambar Banner</th>
               <th>Judul Promo</th>
               <th>Tombol Aksi</th>
               <th>Masa Berlaku</th>
@@ -139,10 +137,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
             {banners.map((b) => (
               <tr key={b.id}>
                 <td>
-                  <div style={{ display: "flex", gap: "8px" }}>
-                    <img src={b.desktopImage} alt="Desktop" style={{ width: "60px", height: "35px", borderRadius: "4px", objectFit: "cover" }} />
-                    <img src={b.mobileImage} alt="Mobile" style={{ width: "35px", height: "35px", borderRadius: "4px", objectFit: "cover" }} />
-                  </div>
+                  <img src={b.desktopImage || b.mobileImage} alt="Banner" style={{ width: "80px", height: "40px", borderRadius: "4px", objectFit: "cover" }} />
                 </td>
                 <td>
                   <strong>{b.title}</strong>
@@ -217,48 +212,24 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Gambar Desktop (Rekomendasi Rasio Panjang, e.g. 1200x380)</label>
+                <label className="form-label">Gambar Banner (Otomatis Menyesuaikan untuk Desktop & Mobile)</label>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  {editingItem.desktopImage && (
-                    <div style={{ position: "relative", width: "240px", height: "76px", borderRadius: "6px", overflow: "hidden", border: "1px solid var(--border-color)", background: "rgba(0,0,0,0.02)" }}>
-                      <img src={editingItem.desktopImage} alt="Pratinjau Desktop" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  {(editingItem.desktopImage || editingItem.mobileImage) && (
+                    <div style={{ position: "relative", width: "240px", height: "120px", borderRadius: "6px", overflow: "hidden", border: "1px solid var(--border-color)", background: "rgba(0,0,0,0.02)" }}>
+                      <img src={editingItem.desktopImage || editingItem.mobileImage} alt="Pratinjau Banner" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
                   )}
                   <div>
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageUpload(e, "desktop")}
+                      onChange={handleImageUpload}
                       style={{ display: "none" }}
-                      id="desktop-image-file"
-                      disabled={uploadingDesktop}
+                      id="banner-image-file"
+                      disabled={uploadingImage}
                     />
-                    <label htmlFor="desktop-image-file" className="btn btn-secondary btn-sm" style={{ margin: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "8px" }}>
-                      📁 {uploadingDesktop ? "Memproses & Kompres..." : editingItem.desktopImage ? "Ubah Gambar Desktop (Upload Lokal)" : "Pilih & Upload Gambar Desktop"}
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Gambar Mobile (Rekomendasi Rasio Kotak/Pendek, e.g. 600x300)</label>
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  {editingItem.mobileImage && (
-                    <div style={{ position: "relative", width: "120px", height: "60px", borderRadius: "6px", overflow: "hidden", border: "1px solid var(--border-color)", background: "rgba(0,0,0,0.02)" }}>
-                      <img src={editingItem.mobileImage} alt="Pratinjau Mobile" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    </div>
-                  )}
-                  <div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageUpload(e, "mobile")}
-                      style={{ display: "none" }}
-                      id="mobile-image-file"
-                      disabled={uploadingMobile}
-                    />
-                    <label htmlFor="mobile-image-file" className="btn btn-secondary btn-sm" style={{ margin: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "8px" }}>
-                      📁 {uploadingMobile ? "Memproses & Kompres..." : editingItem.mobileImage ? "Ubah Gambar Mobile (Upload Lokal)" : "Pilih & Upload Gambar Mobile"}
+                    <label htmlFor="banner-image-file" className="btn btn-secondary btn-sm" style={{ margin: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                      📁 {uploadingImage ? "Memproses & Kompres..." : (editingItem.desktopImage || editingItem.mobileImage) ? "Ubah Gambar Banner (Upload Lokal)" : "Pilih & Upload Gambar Banner"}
                     </label>
                   </div>
                 </div>
@@ -340,7 +311,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
                 <button type="button" onClick={() => { setIsFormOpen(false); setEditingItem(null); }} className="btn btn-secondary btn-sm">
                   Batalkan
                 </button>
-                <button type="submit" disabled={submitting || uploadingDesktop || uploadingMobile} className="btn btn-primary btn-sm">
+                <button type="submit" disabled={submitting || uploadingImage} className="btn btn-primary btn-sm">
                   <CheckIcon size={16} /> {submitting ? "Menyimpan..." : "Simpan Data"}
                 </button>
               </div>
