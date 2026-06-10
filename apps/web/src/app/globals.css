@@ -92,13 +92,21 @@ button, input, select, textarea {
     padding: 50px 0;
   }
   .section-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  .section-title {
+    font-size: 1.25rem;
+    white-space: nowrap;
   }
 }
 
@@ -646,6 +654,13 @@ button, input, select, textarea {
   .hero-content {
     max-width: 100%;
     margin-bottom: 0;
+  }
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.625;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero-ctas {
     justify-content: center;
@@ -1730,6 +1745,8 @@ button, input, select, textarea {
   padding: 32px;
   min-width: 0;
   width: 100%;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .admin-top-bar {

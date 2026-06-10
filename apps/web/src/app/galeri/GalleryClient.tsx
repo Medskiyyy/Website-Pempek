@@ -26,7 +26,7 @@ export default function GalleryClient({ gallery }: GalleryClientProps) {
   });
 
   return (
-    <div className="gallery-page container section-padding animate-fade-in">
+    <div className="gallery-page container section-padding animate-fade-in-simple">
       <div className="section-title-wrapper">
         <h1 className="section-title">Galeri Foto Pempek Cek Lis</h1>
         <p className="section-subtitle">Dokumentasi visual kelezatan produk dan higienitas proses pembuatan kami</p>

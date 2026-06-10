@@ -5,7 +5,7 @@ export const revalidate = 3600; // Cache for 1 hour
 export default async function Page() {
 
   return (
-    <div className="about-page container section-padding animate-fade-in">
+    <div className="about-page container section-padding animate-fade-in-simple">
       <div className="section-title-wrapper">
         <h1 className="section-title">Tentang Pempek Cek Lis</h1>
         <p className="section-subtitle">Kisah kami dalam menjaga cita rasa warisan kuliner asli nusantara</p>

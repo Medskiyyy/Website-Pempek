@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import FloatingAction from "@/components/FloatingAction";
 import { dbSettings } from "@pempek-ceklis/lib";
 import { AuthProvider } from "@/context/AuthContext";
+import RealtimeListener from "@/components/RealtimeListener";
 
 const outfit = Outfit({
   variable: "--font-title",
@@ -43,6 +44,7 @@ export default async function RootLayout({
     <html lang="id" className={`${outfit.variable} ${inter.variable}`}>
       <body>
         <AuthProvider>
+          <RealtimeListener />
           <div className="app-container">
             <Navbar settings={settings} />
             <main className="main-content-wrapper">{children}</main>
