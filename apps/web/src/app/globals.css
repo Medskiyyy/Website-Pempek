@@ -543,6 +543,16 @@ button, input, select, textarea {
   text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
+.hero-title-break {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .hero-title-break {
+    display: block;
+  }
+}
+
 .hero-tagline {
   font-size: 1.35rem;
   color: var(--accent);
@@ -586,6 +596,12 @@ button, input, select, textarea {
 @media (max-width: 992px) {
   .hero-title {
     font-size: 2.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2.1rem;
   }
 }
 
@@ -1592,6 +1608,54 @@ button, input, select, textarea {
   animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Base Desktop Admin Styles (moved above media queries to avoid override issues) */
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.admin-sidebar {
+  padding: 16px;
+  height: fit-content;
+}
+
+.admin-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-main-panel {
+  padding: 32px;
+}
+
+.admin-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+}
+
+.admin-title {
+  color: var(--primary);
+  font-size: 2rem;
+}
+
+.admin-status {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.admin-top-bar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Mobile & Responsive Admin Styles */
 @media (max-width: 992px) {
   .admin-dashboard-grid {
     grid-template-columns: 1fr;
@@ -1649,52 +1713,6 @@ button, input, select, textarea {
   .admin-side-btn {
     width: 100%;
   }
-}
-
-.admin-dashboard-grid {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 32px;
-  align-items: start;
-}
-
-.admin-sidebar {
-  padding: 16px;
-  height: fit-content;
-}
-
-.admin-nav-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.admin-main-panel {
-  padding: 32px;
-}
-
-.admin-top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 20px;
-}
-
-.admin-title {
-  color: var(--primary);
-  font-size: 2rem;
-}
-
-.admin-status {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.admin-top-bar-actions {
-  display: flex;
-  gap: 12px;
 }
 
 

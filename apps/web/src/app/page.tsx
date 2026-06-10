@@ -43,7 +43,14 @@ export default async function Page() {
         <div className="container hero-container grid-2">
           <div className="hero-content">
             <h1 className="hero-title">
-              {settings.siteName || "Pempek Palembang Cek Lis"}
+              {settings.siteName === "Pempek Palembang Cek Lis" || !settings.siteName ? (
+                <>
+                  Pempek Palembang
+                  <span className="hero-title-break"> Cek Lis</span>
+                </>
+              ) : (
+                settings.siteName
+              )}
             </h1>
             <p className="hero-tagline">{settings.heroSubtitle}</p>
             <p className="hero-description">
