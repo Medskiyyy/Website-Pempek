@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { dbProducts } from "@pempek-ceklis/lib";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pempekceklis.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://website-pempek.vercel.app";
   
   // Fetch published products for URLs
   let products: import("@pempek-ceklis/types").Product[] = [];

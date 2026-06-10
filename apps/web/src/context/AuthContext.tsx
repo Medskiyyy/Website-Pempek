@@ -14,6 +14,29 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const setCookie = (name: string, value: string, maxAge?: number) => {
+  if (typeof window !== "undefined") {
+    let cookieStr = `${name}=${encodeURIComponent(value)}; path=/; SameSite=Lax`;
+    if (maxAge !== undefined) {
+      cookieStr += `; max-age=${maxAge}`;
+    }
+    if (window.location.protocol === "https:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      cookieStr += "; Secure";
+    }
+    document.cookie = cookieStr;
+  }
+};
+
+const deleteCookie = (name: string) => {
+  if (typeof window !== "undefined") {
+    let cookieStr = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+    if (window.location.protocol === "https:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      cookieStr += "; Secure";
+    }
+    document.cookie = cookieStr;
+  }
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [role, setRole] = useState<"developer" | "admin" | null>(null);
@@ -36,9 +59,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const mockUser = JSON.parse(mockSession);
           setUser(mockUser as unknown as SupabaseUser);
           setRole(mockUser.role);
+          setCookie("ceklis_session", "mock-session-token", 60 * 60 * 24 * 7);
+          setCookie("ceklis_role", mockUser.role, 60 * 60 * 24 * 7);
         } else {
           setUser(null);
           setRole(null);
+          deleteCookie("ceklis_session");
+          deleteCookie("ceklis_role");
         }
         setLoading(false);
       };
@@ -57,6 +84,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (session?.user) {
           setUser(session.user);
         }
+        if (session?.access_token) {
+          setCookie("ceklis_session", session.access_token, 60 * 60 * 24 * 7);
+        }
         return;
       }
 
@@ -71,19 +101,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (nextUser) {
         setUser(nextUser);
+        if (session?.access_token) {
+          setCookie("ceklis_session", session.access_token, 60 * 60 * 24 * 7);
+        }
         try {
           // Fetch role only if the user changed or role is missing
           if (hasUserChanged || !roleRef.current) {
             const userRole = await dbUsers.getRole(nextUser.id);
             setRole(userRole);
+            if (userRole) {
+              setCookie("ceklis_role", userRole, 60 * 60 * 24 * 7);
+            } else {
+              deleteCookie("ceklis_role");
+            }
           }
         } catch (e) {
           console.error("Gagal memuat peran user dari Supabase:", e);
           setRole(null);
+          deleteCookie("ceklis_role");
         }
       } else {
         setUser(null);
         setRole(null);
+        deleteCookie("ceklis_session");
+        deleteCookie("ceklis_role");
       }
 
       setLoading(false);
@@ -106,6 +147,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         setUser(mockUser as unknown as SupabaseUser);
         setRole(userRole);
+        setCookie("ceklis_session", "mock-session-token", 60 * 60 * 24 * 7);
+        setCookie("ceklis_role", userRole, 60 * 60 * 24 * 7);
         setLoading(false);
         return;
       } else {
@@ -134,6 +177,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       setUser(null);
       setRole(null);
+      deleteCookie("ceklis_session");
+      deleteCookie("ceklis_role");
       setLoading(false);
       return;
     }
@@ -146,6 +191,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } finally {
       setUser(null);
       setRole(null);
+      deleteCookie("ceklis_session");
+      deleteCookie("ceklis_role");
       setLoading(false);
     }
   };
