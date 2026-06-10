@@ -7,6 +7,7 @@ import FloatingAction from "@/components/FloatingAction";
 import { dbSettings } from "@pempek-ceklis/lib";
 import { AuthProvider } from "@/context/AuthContext";
 import RealtimeListener from "@/components/RealtimeListener";
+import DevToolsBlocker from "@/components/DevToolsBlocker";
 
 const outfit = Outfit({
   variable: "--font-title",
@@ -87,6 +88,7 @@ export default async function RootLayout({
         />
       </head>
       <body>
+        <DevToolsBlocker />
         <AuthProvider>
           <RealtimeListener />
           <div className="app-container">
