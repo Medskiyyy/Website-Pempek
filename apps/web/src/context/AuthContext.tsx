@@ -46,28 +46,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return () => {};
     }
 
-    // Initialize session check
-    const initSessionCheck = async () => {
-      setLoading(true);
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        setUser(session.user);
-        try {
-          const userRole = await dbUsers.getRole(session.user.id);
-          setRole(userRole);
-        } catch (e) {
-          console.error("Gagal memuat peran user dari Supabase:", e);
-          setRole(null);
-        }
-      } else {
-        setUser(null);
-        setRole(null);
-      }
-      setLoading(false);
-    };
-    initSessionCheck();
+    setLoading(true);
 
-    // Listen for auth events
+    // Listen for auth events (Supabase auth listener fires automatically with the initial session on load)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log("[AuthContext] Auth event:", event, "User ID:", session?.user?.id);
 

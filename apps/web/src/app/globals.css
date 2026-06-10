@@ -801,6 +801,37 @@ button, input, select, textarea {
   .btn-next {
     right: 8px;
   }
+
+  /* Resizing menu and gallery images on mobile to prevent full-screen size */
+  .product-img {
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .detail-main-img {
+    max-height: 260px;
+    object-fit: cover;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+  
+  .gallery-img {
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .testimonial-card {
+    padding: 20px 16px;
+  }
+
+  .testimonial-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
 
 /* -------------------------------------------------------------
@@ -991,6 +1022,29 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.testimonial-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* -------------------------------------------------------------
+   ABOUT PAGE STYLES
+   ------------------------------------------------------------- */
+.about-img {
+  height: 400px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+  .about-img {
+    height: 240px;
+  }
 }
 
 /* -------------------------------------------------------------
@@ -1641,6 +1695,8 @@ button, input, select, textarea {
 
 .admin-main-panel {
   padding: 32px;
+  min-width: 0;
+  width: 100%;
 }
 
 .admin-top-bar {

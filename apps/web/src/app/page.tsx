@@ -45,7 +45,7 @@ export default async function Page() {
             <h1 className="hero-title">
               {settings.siteName === "Pempek Palembang Cek Lis" || !settings.siteName ? (
                 <>
-                  Pempek Palembang
+                  <span style={{ display: "inline-block", whiteSpace: "nowrap" }}>Pempek Palembang</span>
                   <span className="hero-title-break"> Cek Lis</span>
                 </>
               ) : (
