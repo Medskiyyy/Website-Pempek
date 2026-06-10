@@ -634,16 +634,10 @@ button, input, select, textarea {
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.6rem, 8.5vw, 2.2rem);
   }
   .hero-tagline {
     font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .hero-title {
-    font-size: 1.6rem;
   }
 }
 
@@ -1105,13 +1099,7 @@ button, input, select, textarea {
 
 @media (max-width: 480px) {
   .about-page .section-title {
-    font-size: 1.35rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .about-page .section-title {
-    font-size: 1.2rem;
+    font-size: clamp(1.15rem, 5.8vw, 1.55rem);
   }
 }
 
