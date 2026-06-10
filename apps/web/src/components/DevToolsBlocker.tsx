@@ -7,7 +7,7 @@ export default function DevToolsBlocker() {
     // Check if the user is exempt from DevTools blocking
     const checkIsExempt = () => {
       const hostname = window.location.hostname;
-      if (hostname === "localhost" || hostname === "127.0.0.1") {
+      if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "192.168.1.52") {
         return true;
       }
       const cookies = document.cookie.split(";").map(c => c.trim());
