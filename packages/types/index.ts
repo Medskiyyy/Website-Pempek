@@ -42,7 +42,7 @@ export type Banner = z.infer<typeof BannerSchema>;
 // 3. Testimonials
 export const TestimonialSchema = z.object({
   id: z.string().optional(),
-  customerName: z.string().min(1, "Nama pelanggan wajib diisi"),
+  customerName: z.string().optional(),
   content: z.string().min(1, "Isi testimoni wajib diisi"),
   published: z.boolean().default(true),
   createdAt: z.any().optional(),

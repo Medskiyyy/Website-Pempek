@@ -1,5 +1,6 @@
 import React from "react";
 import { dbTestimonials } from "@pempek-ceklis/lib";
+import TestimoniForm from "./TestimoniForm";
 
 export const revalidate = 60; // ISR 60s
 
@@ -14,6 +15,8 @@ export default async function Page() {
           Kepuasan Anda adalah kebahagiaan kami. Berikut ulasan tulus dari para pelanggan setia Pempek Cek Lis.
         </p>
       </div>
+
+      <TestimoniForm />
 
       {testimonials.length > 0 ? (
         <div className="grid-2 testimonials-grid">
