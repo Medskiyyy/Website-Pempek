@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from "./supabase";
+import { supabase, isSupabaseConfigured, supabaseAdmin } from "./supabase";
 import { Product, Banner, Testimonial, GalleryItem, Settings, User } from "@pempek-ceklis/types";
 
 // Fallback Mock Data for Offline/Unconfigured Testing
@@ -471,11 +471,11 @@ export const dbTestimonials = {
     };
 
     if (testimonial.id) {
-      const { error } = await supabase.from("testimonials").update(payload).eq("id", testimonial.id);
+      const { error } = await supabaseAdmin.from("testimonials").update(payload).eq("id", testimonial.id);
       if (error) throw error;
       return testimonial.id;
     } else {
-      const { data, error } = await supabase.from("testimonials").insert([{
+      const { data, error } = await supabaseAdmin.from("testimonials").insert([{
         ...payload,
         created_at: new Date().toISOString()
       }]).select("id").single();
@@ -491,7 +491,7 @@ export const dbTestimonials = {
       saveLocalData("testimonials", tests);
       return;
     }
-    const { error } = await supabase.from("testimonials").delete().eq("id", id);
+    const { error } = await supabaseAdmin.from("testimonials").delete().eq("id", id);
     if (error) throw error;
   }
 };

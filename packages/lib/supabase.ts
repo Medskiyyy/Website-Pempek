@@ -21,6 +21,17 @@ const supabaseAnonKey = isSupabaseConfigured
 // Initialize Supabase Client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+const supabaseServiceKey = typeof process !== "undefined" ? process.env.SUPABASE_SERVICE_ROLE_KEY : undefined;
+
+export const supabaseAdmin = isSupabaseConfigured && supabaseServiceKey
+  ? createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false
+      }
+    })
+  : supabase;
+
 // Client-side image compression helper (from canvas)
 export const compressImage = (file: File, maxWidth = 1000, maxHeight = 1000, quality = 0.75): Promise<Blob> => {
   return new Promise((resolve, reject) => {

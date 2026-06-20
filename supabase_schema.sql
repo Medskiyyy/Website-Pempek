@@ -133,6 +133,7 @@ $$ language plpgsql security definer;
 create policy "Allow admin write to products" on public.products for all using (is_admin());
 create policy "Allow admin write to banners" on public.banners for all using (is_admin());
 create policy "Allow admin write to testimonials" on public.testimonials for all using (is_admin());
+create policy "Allow public insert to testimonials" on public.testimonials for insert with check (true);
 create policy "Allow admin write to gallery" on public.gallery for all using (is_admin());
 create policy "Allow admin write to settings" on public.settings for all using (is_admin());
 
