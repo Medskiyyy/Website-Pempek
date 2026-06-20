@@ -27,7 +27,7 @@ export default function TestimoniForm() {
   };
 
   return (
-    <div className="glass-card animate-fade-in" style={{ marginBottom: "3rem", padding: "2rem" }}>
+    <div className="glass-card animate-fade-in" style={{ marginTop: "3rem", marginBottom: "3rem", padding: "2rem" }}>
       <h3 style={{ marginTop: 0, marginBottom: "1rem", color: "var(--primary)" }}>Tulis Testimoni Anda</h3>
       
       {success && (

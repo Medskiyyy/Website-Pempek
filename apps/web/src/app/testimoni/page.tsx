@@ -16,8 +16,6 @@ export default async function Page() {
         </p>
       </div>
 
-      <TestimoniForm />
-
       {testimonials.length > 0 ? (
         <div className="grid-2 testimonials-grid">
           {testimonials.map((t) => (
@@ -41,6 +39,8 @@ export default async function Page() {
           <p>Belum ada testimoni yang dipublikasikan.</p>
         </div>
       )}
+
+      <TestimoniForm />
     </div>
   );
 }
