@@ -33,9 +33,9 @@ export default async function Page() {
           {testimonials.map((t) => (
             <div key={t.id} className="glass-card testimonial-card animate-fade-in">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
-                <h4 className="testimonial-author" style={{ color: "var(--primary)", fontSize: "1.1rem", margin: 0 }}>
+                <h3 className="testimonial-author" style={{ color: "var(--primary)", fontSize: "1.1rem", margin: 0 }}>
                   {t.customerName}
-                </h4>
+                </h3>
                 <div className="testimonial-stars" style={{ color: "var(--accent)", fontSize: "1.1rem", margin: 0 }}>
                   ★★★★★
                 </div>

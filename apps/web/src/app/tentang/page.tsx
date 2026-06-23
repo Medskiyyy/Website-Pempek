@@ -26,7 +26,7 @@ export default async function Page() {
       <div className="about-grid grid-2" style={{ alignItems: "center" }}>
         <div className="about-image-wrapper">
           <img
-            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&auto=format&fit=crop&q=80"
+            src="/tentang_pempek.png"
             alt="Dapur Pempek Cek Lis"
             className="about-img glass-card"
             style={{ width: "100%" }}
