@@ -4,6 +4,18 @@ import TestimoniForm from "./TestimoniForm";
 
 export const revalidate = 60; // ISR 60s
 
+export const metadata = {
+  title: "Testimoni Pelanggan - Ulasan Jujur Pempek Cek Lis",
+  description: "Baca ulasan jujur dan testimoni dari pelanggan setia Pempek Cek Lis. Bukti kelezatan cita rasa pempek asli Palembang buatan kami.",
+  alternates: {
+    canonical: "/testimoni"
+  },
+  openGraph: {
+    title: "Testimoni Pelanggan - Ulasan Jujur Pempek Cek Lis",
+    description: "Baca ulasan jujur dan testimoni dari pelanggan setia Pempek Cek Lis. Bukti kelezatan cita rasa pempek asli Palembang buatan kami.",
+    url: "/testimoni"
+  }
+};
 export default async function Page() {
   const testimonials = await dbTestimonials.getAll(true);
 

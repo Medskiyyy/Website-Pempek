@@ -2,6 +2,18 @@ import React from "react";
 
 export const revalidate = 3600; // Cache for 1 hour
 
+export const metadata = {
+  title: "Tentang Kami - Sejarah Pempek Cek Lis",
+  description: "Kisah di balik Pempek Cek Lis. Kami berkomitmen menyajikan hidangan pempek dengan cita rasa asli Palembang menggunakan ikan tenggiri segar dan cuko legendaris.",
+  alternates: {
+    canonical: "/tentang"
+  },
+  openGraph: {
+    title: "Tentang Kami - Sejarah Pempek Cek Lis",
+    description: "Kisah di balik Pempek Cek Lis. Kami berkomitmen menyajikan hidangan pempek dengan cita rasa asli Palembang menggunakan ikan tenggiri segar dan cuko legendaris.",
+    url: "/tentang"
+  }
+};
 export default async function Page() {
 
   return (

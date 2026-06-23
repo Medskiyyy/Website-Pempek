@@ -21,7 +21,10 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"]
 });
 
+const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://website-pempek.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(defaultUrl),
   title: "Pempek Palembang Cek Lis - Cita Rasa Otentik Tangerang Selatan",
   description: "Beli Pempek asli Palembang yang lezat dan bergizi di Tangerang Selatan. Dibuat menggunakan ikan tenggiri segar berkualitas dengan cuko kental pedas manis ebi.",
   keywords: [
@@ -32,18 +35,18 @@ export const metadata: Metadata = {
     "pempek asli palembang"
   ],
   alternates: {
-    canonical: "https://website-pempek.vercel.app"
+    canonical: "/"
   },
   openGraph: {
     title: "Pempek Palembang Cek Lis - Cita Rasa Otentik Tangerang Selatan",
     description: "Beli Pempek asli Palembang yang lezat dan bergizi di Tangerang Selatan. Dibuat menggunakan ikan tenggiri segar berkualitas dengan cuko kental pedas manis ebi.",
-    url: "https://website-pempek.vercel.app",
+    url: "/",
     siteName: "Pempek Palembang Cek Lis",
     locale: "id_ID",
     type: "website",
     images: [
       {
-        url: "https://website-pempek.vercel.app/images/og-image.jpg",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Pempek Palembang Cek Lis"
@@ -60,11 +63,13 @@ export default async function RootLayout({
   // Fetch store configuration settings dynamically
   const settings = await dbSettings.get();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://website-pempek.vercel.app";
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FoodEstablishment",
     "name": settings?.siteName || "Pempek Palembang Cek Lis",
-    "image": settings?.heroImage || "https://website-pempek.vercel.app/images/hero.jpg",
+    "image": settings?.heroImage || `${siteUrl}/images/hero.jpg`,
     "telephone": settings?.phone || settings?.whatsapp || "",
     "address": {
       "@type": "PostalAddress",
@@ -73,7 +78,7 @@ export default async function RootLayout({
       "addressRegion": "Banten",
       "addressCountry": "ID"
     },
-    "url": "https://website-pempek.vercel.app",
+    "url": siteUrl,
     "priceRange": "$$",
     "servesCuisine": "Pempek, Palembang, Indonesian",
     "openingHours": settings?.businessHours || "09:00-21:00"

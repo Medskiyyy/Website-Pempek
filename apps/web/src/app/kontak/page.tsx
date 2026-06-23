@@ -4,6 +4,18 @@ import { WhatsAppIcon, InstagramIcon, ClockIcon } from "@/components/Icons";
 
 export const revalidate = 60; // ISR 60s
 
+export const metadata = {
+  title: "Hubungi Pempek Cek Lis - Lokasi Outlet Tangerang Selatan",
+  description: "Hubungi kami untuk pemesanan pempek, katering, atau kunjungi outlet Pempek Cek Lis di Tangerang Selatan. Kami siap melayani pengiriman (delivery).",
+  alternates: {
+    canonical: "/kontak"
+  },
+  openGraph: {
+    title: "Hubungi Pempek Cek Lis - Lokasi Outlet Tangerang Selatan",
+    description: "Hubungi kami untuk pemesanan pempek, katering, atau kunjungi outlet Pempek Cek Lis di Tangerang Selatan. Kami siap melayani pengiriman (delivery).",
+    url: "/kontak"
+  }
+};
 export default async function Page() {
   const settings = await dbSettings.get();
 
